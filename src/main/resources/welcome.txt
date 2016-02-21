@@ -1,0 +1,6 @@
+>>>>> Welcome in Androger <<<<
+
+Please open files that you wish to see. 
+Usually this is application is used to watch an application log file.
+
+Thank you :)

@@ -70,6 +70,10 @@ public class Androger implements ApplicationInput {
 
 	private void createNewLogView(LogID id) {
 		LogDataSource logDS = new LogFileDS(id);
+		createNewLogView(logDS);
+	}
+	
+	private void createNewLogView(LogDataSource logDS) {
 		LogView textView = guiView.createNewTextView(logDS.getVisibleName(), logDS.getLogID());
 		LogViewManager viewManager = new LogViewManager(textView);
 		guiView.showView();

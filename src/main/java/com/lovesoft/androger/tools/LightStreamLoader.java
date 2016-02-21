@@ -13,7 +13,7 @@ import java.io.InputStream;
  */
 public class LightStreamLoader {
 	private InputStream iStream;
-	private int SIZE = 1024;
+	private int SIZE = 1024*10;
 	public LightStreamLoader(InputStream stream) {
 		super();
 		iStream = new BufferedInputStream(stream,SIZE) ;
