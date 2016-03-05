@@ -56,15 +56,15 @@ public class Androger implements ApplicationInput {
 		}
 		
 		// If still there is nothing opened, ask user to chose log file
-		if (logs.size() == 0) {
-			String logName = null;
-			logName = guiView.getNewLogFileName(); 
-			if(logName ==  null || "".equals(logName)) {
-				// User has not chose log file, just exit
-				GUIViewClosed();
-			}
-			createNewLogView(logName);			
-		}
+//		if (logs.size() == 0) {
+//			String logName = null;
+//			logName = guiView.getNewLogFileName(); 
+//			if(logName ==  null || "".equals(logName)) {
+//				// User has not chose log file, just exit
+//				GUIViewClosed();
+//			}
+//			createNewLogView(logName);			
+//		}
 		guiView.showView();
 	}
 

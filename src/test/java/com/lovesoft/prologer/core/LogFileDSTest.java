@@ -17,6 +17,7 @@ import com.lovesoft.androger.core.LogString;
 
 public class LogFileDSTest {
 
+	private static final int WAIT_TIME_IN_MS = 50;
 	private static final String OUT_FILE_NAME = "testfile.txt";
 	private static final String SIMPLE_CONTENT = "We are in this beautifull universe and we are so happy to say that óóó óóó:) !!!!";
 	private static final String SIMPLE_CONTENT2 = "Life is all about Love. True story.óóó";
@@ -111,7 +112,7 @@ public class LogFileDSTest {
 	
 
 	private void waitForLoger() throws InterruptedException {
-		Thread.sleep(Setup.getPauseTimeInMs() + 50);
+		Thread.sleep(Setup.getPauseTimeInMs() + WAIT_TIME_IN_MS);
 	}
 
 	private class FakeLogDataObserver implements LogDataObserver {
