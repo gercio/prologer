@@ -1,9 +1,9 @@
 package com.lovesoft.androger.action;
 
-import com.lovesoft.androger.LogDataSource;
 import com.lovesoft.androger.core.LogFilter;
 import com.lovesoft.androger.core.LogFilterByStringInLine;
 import com.lovesoft.androger.core.LogViewManager;
+import com.lovesoft.androger.core.datasource.LogDataSource;
 
 public class ActionTextFilterEnabled extends ActionAbstract {
 	private String textFilter;

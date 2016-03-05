@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 
 import com.lovesoft.androger.Setup;
 import com.lovesoft.androger.tools.LightStreamLoader;
+import com.lovesoft.androger.tools.ResourceLoader;
 
 
 
@@ -32,9 +33,6 @@ import com.lovesoft.androger.tools.LightStreamLoader;
 public class ImageHolder {
 	private static ImageHolder holder;
 	private Map<String, ImageIcon> loadedImages;
-//	private Map<Integer, List<ImageIcon>> loadedFrames;
-//	private Map<String, Icon> loadedFileExtensionImages;
-//	private Set<String> excludedFileExtensions;
 	
 	private static String sep = File.separator;
 	private static String iconDir = Setup.getIconDirectory();
@@ -81,15 +79,6 @@ public class ImageHolder {
 
 	private ImageHolder() {
 		loadedImages = new TreeMap<String, ImageIcon>();
-//		loadedFrames = new TreeMap<Integer, List<ImageIcon>>();
-//		loadedFileExtensionImages = new TreeMap<String, Icon>();
-//		excludedFileExtensions = new TreeSet<String>();
-//		excludedFileExtensions.add("exe");
-//		excludedFileExtensions.add("ico");
-//		excludedFileExtensions.add("com");
-//		excludedFileExtensions.add("EXE");
-//		excludedFileExtensions.add("ICO");
-//		excludedFileExtensions.add("COM");
 	}
 
 	public Icon getImageSmall(ImageEnum imageEnum)  {
@@ -108,27 +97,11 @@ public class ImageHolder {
 		return getImage(imageEnum, null);
 	}
 
-	
-//	
-//	public ImageIcon getImageIconSmall(int imageNumber) throws DetailedException {
-//		return getImage(imageNumber, ImageSize.SMALL, null);
-//	}
-//	public ImageIcon getImageIconNormal(int imageNumber) throws DetailedException {
-//		return getImage(imageNumber, ImageSize.NORMAL, null);
-//	}
-
 	private synchronized ImageIcon getImage(ImageEnum imageNumber, ImageSize size) {
 		String key = getImageKey(imageNumber, size);
 		ImageIcon image = loadedImages.get(key);
 		if (image == null) {
-			InputStream stream = getImageAsStream(imageNumber);
-			LightStreamLoader loader = new LightStreamLoader(stream);
-			byte[] buff;
-			try {
-				buff = loader.load();
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
+			byte[] buff = getImageAsStream(imageNumber);
 			image = new ImageIcon(Toolkit.getDefaultToolkit().createImage(buff));
 			if (size != null) {
 				image = resize(size.getWidth(), size.getHeight(), image);
@@ -138,60 +111,15 @@ public class ImageHolder {
 		return image;
 	}
 	
-	@SuppressWarnings("resource")
-	private InputStream getImageAsStream(ImageEnum imageEnum) {
-		InputStream stream = null;
-		try {
-			stream = new FileInputStream(getPath(iconDir, imageEnum.getFileName()));
-		} catch (FileNotFoundException e) {
-			stream = ImageHolder.class.getResourceAsStream( getPathForJar(iconDir, imageEnum.getFileName()) );
-			if(stream == null) {
-				throw new RuntimeException("Can't open file " + imageEnum.getFileName(), e);
-			}
-		}
-		return stream;
+	private byte[] getImageAsStream(ImageEnum imageEnum) {
+		return ResourceLoader.loadFileResource(iconDir + "/" + imageEnum.getFileName());
 	}
 	
-	private static String getPath(String dirName, String fileName) {
-		return Setup.getResourceFolder() + dirName + sep +  fileName;
-	}
-	
-	private static String getPathForJar(String dirName, String fileName) {
-		return '/' + dirName + '/' + fileName;
-	}
 
 	private String getImageKey(ImageEnum imageNumber, ImageSize size) {
 		return (size == null ? "" : size.getPrefix()) + imageNumber.getFileName();
 	}
-	
-//	private String getImageKey(String imageName, ImageSize size) {
-//		return (size == null ? "" : size.getPrefix()) + imageName;
-//	}
 
-//
-//	public List<ImageIcon> getFramesFromImage(int imageNumber) throws DetailedException {
-//		List<ImageIcon> imageList = loadedFrames.get(imageNumber);
-//		if (imageList == null) {
-//			imageList = new ArrayList<ImageIcon>();
-//			InputStream is = ApplicationConfiguration.getImageAsStream(getName(imageNumber));
-//			GifDecoder gifDec = new GifDecoder();
-//			int status = gifDec.read(is);
-//			if (status != GifDecoder.STATUS_OK) {
-//				if (status == 1) {
-//					// Probably this is not GIF file, so just return it.
-//					imageList.add(getImage(imageNumber));
-//					return imageList;
-//				}
-//				Debug.error("Can't get frames. Error code " + status);
-//				throw DetailedException.getCantGerFramesFromImage(getName(imageNumber));
-//			}
-//			for (int i = 0; i < gifDec.getFrameCount(); i++) {
-//				imageList.add(new ImageIcon(gifDec.getFrame(i)));
-//			}
-//			loadedFrames.put(imageNumber, imageList);
-//		}
-//		return imageList;
-//	}
 
 	public static ImageHolder getInstance() {
 		if (holder == null) {
@@ -199,51 +127,6 @@ public class ImageHolder {
 		}
 		return holder;
 	}
-
-//
-//	public Icon getFileIcon(FileInfo fileInfo) throws DetailedException {
-//		// Directory
-//		if (fileInfo.isDirectory()) {
-//			return getImageSmall(FOLDER_ICON);
-//		}
-//		String ext = fileInfo.getExtension();
-//		if (ext == null || ext.length() < 1) {
-//			return getImageSmall(DEFAULT_FILE_ICON);
-//		}
-//		
-//		// Check is file exist
-//		if (!IOCenter.getInstance().isExisting(fileInfo)) {
-//			// File not exist (probably remote dir), try to load image from cache
-//			Icon icon = loadedFileExtensionImages.get(ext);
-//			if(icon != null) {
-//				return icon;
-//			}
-//			// No image for this extension in cache - load default icon
-//			return getImageSmall(DEFAULT_FILE_ICON);
-//		}
-//		
-//		// File is existing
-//		FileSystemView view = FileSystemView.getFileSystemView();
-//		if(excludedFileExtensions.contains(ext)) {
-//			// For this kind of files, always load icon from system
-//			return view.getSystemIcon(IOCenter.getInstance().getFile(fileInfo));
-//		}
-//		
-//		// Try to load image from cache
-//		Icon icon = loadedFileExtensionImages.get(ext);
-//		if (icon != null) {
-//			return icon;
-//		}
-//		
-//		//Try load icon from system
-//		icon = view.getSystemIcon(IOCenter.getInstance().getFile(fileInfo));
-//		if (icon == null) {
-//			icon = getImageSmall(DEFAULT_FILE_ICON);
-//		} else {
-//			loadedFileExtensionImages.put(ext, icon);
-//		}
-//		return icon;
-//	}
 
 	private ImageIcon resize(int width, int height, ImageIcon image) {
 		ImageFilter replicate = new AreaAveragingScaleFilter(width, height);

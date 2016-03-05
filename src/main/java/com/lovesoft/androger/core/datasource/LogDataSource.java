@@ -1,5 +1,6 @@
-package com.lovesoft.androger;
+package com.lovesoft.androger.core.datasource;
 
+import com.lovesoft.androger.LogDataObserver;
 import com.lovesoft.androger.core.LogID;
 
 

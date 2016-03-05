@@ -1,7 +1,7 @@
 package com.lovesoft.androger.action;
 
-import com.lovesoft.androger.LogDataSource;
 import com.lovesoft.androger.core.LogViewManager;
+import com.lovesoft.androger.core.datasource.LogDataSource;
 
 public class ActionCloseLog extends ActionAbstract {
 

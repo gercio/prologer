@@ -1,4 +1,4 @@
-package com.lovesoft.androger.core;
+package com.lovesoft.androger.core.datasource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,8 +7,10 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.lovesoft.androger.LogDataObserver;
-import com.lovesoft.androger.LogDataSource;
 import com.lovesoft.androger.Setup;
+import com.lovesoft.androger.core.LogID;
+import com.lovesoft.androger.core.LogString;
+import com.lovesoft.androger.tools.LogMe;
 
 public abstract class DataSourceInputStream implements LogDataSource, Runnable {
 	private static final long PAUSE_TIME_IN_MS = Setup.getPauseTimeInMs();
@@ -21,8 +23,8 @@ public abstract class DataSourceInputStream implements LogDataSource, Runnable {
 	private Long lastLenght;
 	private Thread workingThread;
 
-	public DataSourceInputStream(LogID inputFileName) {
-		this.logID = inputFileName;
+	public DataSourceInputStream(LogID logId) {
+		this.logID = logId;
 		lastLenght = 0L;
 		canRun = new AtomicBoolean(false);
 		isPaused = new AtomicBoolean(true);
@@ -131,7 +133,7 @@ public abstract class DataSourceInputStream implements LogDataSource, Runnable {
 			openFile();
 			return true;
 		} catch (Exception ex) {
-			System.err.println("Can't read file " + logID.getFilePath() + " Exception: " + ex.getMessage());
+			LogMe.logDebug("Can't read file " + logID.getFilePath(), ex);
 			reset();
 			return false;
 		}
@@ -139,8 +141,6 @@ public abstract class DataSourceInputStream implements LogDataSource, Runnable {
 
 	private void openFile() throws IOException {
 		if (fileIn == null) {
-//			file = new File(logID.getFilePath());
-//			fileIn = new FileInputStream(file);
 			fileIn = createInputStream(logID);
 		}
 	}

@@ -2,7 +2,7 @@ package com.lovesoft.androger.core;
 
 
 import com.lovesoft.androger.LogDataObserver;
-import com.lovesoft.androger.LogDataSource;
+import com.lovesoft.androger.core.datasource.LogDataSource;
 
 public class HTTPDS implements LogDataSource{
 

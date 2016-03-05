@@ -11,9 +11,9 @@ import org.junit.Test;
 
 import com.lovesoft.androger.LogDataObserver;
 import com.lovesoft.androger.Setup;
-import com.lovesoft.androger.core.LogFileDS;
 import com.lovesoft.androger.core.LogID;
 import com.lovesoft.androger.core.LogString;
+import com.lovesoft.androger.core.datasource.DataSourceFile;
 
 public class LogFileDSTest {
 
@@ -23,13 +23,13 @@ public class LogFileDSTest {
 	private static final String SIMPLE_CONTENT2 = "Life is all about Love. True story.óóó";
 
 	private DataWriter dw;
-	private LogFileDS ds;
+	private DataSourceFile ds;
 	@Before
 	public void beforeTest() {
 		try {
 			(new DataWriter(OUT_FILE_NAME)).removeFile();
 			dw = new DataWriter(OUT_FILE_NAME); 
-			ds = new LogFileDS(new LogID(OUT_FILE_NAME));
+			ds = new DataSourceFile(new LogID(OUT_FILE_NAME));
 			
 		} catch ( Exception e) {
 			// do not care

@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lovesoft.androger.ApplicationInput;
-import com.lovesoft.androger.LogDataSource;
 import com.lovesoft.androger.Setup;
 import com.lovesoft.androger.action.Action;
 import com.lovesoft.androger.action.ActionTextFilterDisabled;
 import com.lovesoft.androger.action.ActionTextFilterEnabled;
+import com.lovesoft.androger.core.datasource.LogDataSource;
+import com.lovesoft.androger.core.datasource.DataSourceFile;
+import com.lovesoft.androger.core.datasource.DataSourceResource;
 import com.lovesoft.androger.core.storage.ApplicationState;
 import com.lovesoft.androger.core.storage.ApplicationStateStorage;
 
@@ -55,21 +57,22 @@ public class Androger implements ApplicationInput {
 		} catch (Exception ignored) {
 		}
 		
-		// If still there is nothing opened, ask user to chose log file
-//		if (logs.size() == 0) {
-//			String logName = null;
-//			logName = guiView.getNewLogFileName(); 
-//			if(logName ==  null || "".equals(logName)) {
-//				// User has not chose log file, just exit
-//				GUIViewClosed();
-//			}
-//			createNewLogView(logName);			
-//		}
+		// If still there is nothing opened, open default screen
+		if (logs.size() == 0) {
+			LogID logId = new LogID(Setup.getWelcomeFileName());
+			logId.setResource(true);
+			createNewLogView(logId);
+		}
 		guiView.showView();
 	}
 
 	private void createNewLogView(LogID id) {
-		LogDataSource logDS = new LogFileDS(id);
+		LogDataSource logDS;
+		if(id.isResource()) {
+			logDS = new DataSourceResource(id);
+		} else {
+			logDS = new DataSourceFile(id);			
+		}
 		createNewLogView(logDS);
 	}
 	

@@ -11,6 +11,7 @@ public class LogID implements Serializable {
 	private static final String PREFIX_FILE_PATH = "filePath=";
 	private static final long serialVersionUID = -1155020709144131249L;
 	private String filePath;
+	private boolean resource = false;
 	// Here is the place for other id's like http address in future.
 
 	public LogID() {
@@ -51,5 +52,13 @@ public class LogID implements Serializable {
 		} else if (!filePath.equals(other.filePath))
 			return false;
 		return true;
+	}
+
+	public boolean isResource() {
+		return resource;
+	}
+
+	public void setResource(boolean resource) {
+		this.resource = resource;
 	}
 }

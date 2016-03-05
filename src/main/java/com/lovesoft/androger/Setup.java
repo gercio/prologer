@@ -10,10 +10,10 @@ public class Setup {
 	private static final int MAX_TEXT_FIELD_SIZE = (int) (1024 * 1024 * 3d);
 	private static final int FILE_CHUNK_SIZE = MAX_TEXT_FIELD_SIZE;
 	private static final int MAX_VISIBLE_DATASOURCE_NAME = 60;
-	private static String sep = File.separator;
 	private static String iconDirectory = "icons";
-	private static String RESOURCE_FOLDER = "src" + sep + "main" + sep + "resources" + sep;
+	private static String RESOURCE_FOLDER = "src/main/resources/";
 	private static String CONFIGURATION_FILE_PATH = System.getProperty("user.dir") +File.separator +"androger_configuration.xml";
+	private static String WELCOME_FILE_NAME = "welcome.txt";
 	
 	public static Dimension IMAGE_SIZE_SMALL = new Dimension(10,10);
 	public static Dimension IMAGE_SIZE_NORMAL = new Dimension(32,32);
@@ -49,5 +49,8 @@ public class Setup {
 	}
 	public static String getResourceFolder() {
 		return RESOURCE_FOLDER;
+	}
+	public static String getWelcomeFileName() {
+		return WELCOME_FILE_NAME;
 	}
 }

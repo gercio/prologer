@@ -1,6 +1,6 @@
 package com.lovesoft.androger.core;
 
-import com.lovesoft.androger.LogDataSource;
+import com.lovesoft.androger.core.datasource.LogDataSource;
 
 public class LogSet {
 	private LogView logView;

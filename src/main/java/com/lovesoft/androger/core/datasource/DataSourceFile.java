@@ -1,4 +1,4 @@
-package com.lovesoft.androger.core;
+package com.lovesoft.androger.core.datasource;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,14 +10,14 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.lovesoft.androger.LogDataObserver;
-import com.lovesoft.androger.LogDataSource;
 import com.lovesoft.androger.Setup;
+import com.lovesoft.androger.core.LogID;
 
-public class LogFileDS extends DataSourceInputStream implements LogDataSource, Runnable {
+public class DataSourceFile extends DataSourceInputStream {
 	private static final long PAUSE_TIME_IN_MS = Setup.getPauseTimeInMs();
 	private File file;
 
-	public LogFileDS(LogID logId) {
+	public DataSourceFile(LogID logId) {
 		super(logId);
 	}
 

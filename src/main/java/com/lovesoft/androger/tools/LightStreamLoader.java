@@ -22,15 +22,16 @@ public class LightStreamLoader {
 	public byte[] load() throws IOException {
 		byte[] buff = new byte[SIZE];
 		ByteArrayOutputStream oStream = new ByteArrayOutputStream();
-		BufferedOutputStream oBuffStream = new BufferedOutputStream(oStream, SIZE);
-		int read = 0;
-		while (read != -1) {
-			read = iStream.read(buff);
-			if (read != -1) {
-				oBuffStream.write(buff, 0, read);
+		try(BufferedOutputStream oBuffStream = new BufferedOutputStream(oStream, SIZE)) {
+			int read = 0;
+			while (read != -1) {
+				read = iStream.read(buff);
+				if (read != -1) {
+					oBuffStream.write(buff, 0, read);
+				}
 			}
+			oBuffStream.flush();
+			return oStream.toByteArray();			
 		}
-		oBuffStream.flush();
-		return oStream.toByteArray();
 	}
 }
