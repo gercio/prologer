@@ -128,13 +128,6 @@ public class LogPanel extends JPanel implements LogView, ActionListener, KeyList
 	}
 
 	private void checkWidgetsState() {
-//		String filterText = filterTextField.getText();
-//		if (filterText != null && filterText.length() > 0) {
-//			filterBtn.setEnabled(true);
-//		} else {
-//			filterBtn.setEnabled(false);
-//		}
-		
 		buttonDecorator.decorate(new OnOff() {
 			@Override
 			public boolean isOn() {
