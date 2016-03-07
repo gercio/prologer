@@ -1,19 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application-state-dTO>
-	<gui-state>
-		<size x="748.0" y="1206.0" />
-		<location-on-screen x="509.0" y="135.0" />
-	</gui-state>
-	<log-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:type="java:com.lovesoft.androger.core.storage.LogContainerDTO">
-		<log-name>_local_log_container_</log-name>
-		<log-ids resource="true"
-			xsi:type="java:com.lovesoft.androger.core.storage.LogIDDTO">
-			<file-path>welcome.txt</file-path>
-		</log-ids>
-		<log-ids resource="false"
-			xsi:type="java:com.lovesoft.androger.core.storage.LogIDDTO">
-			<file-path>C:\Install.log</file-path>
-		</log-ids>
-	</log-containers>
-</application-state-dTO>
+<application-state-dTO><gui-state><size x="663.0" y="1123.0"/><location-on-screen x="559.0" y="244.0"/></gui-state><log-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.lovesoft.androger.core.storage.LogContainerDTO"><log-name>_local_log_container_</log-name><log-ids resource="true" xsi:type="java:com.lovesoft.androger.core.storage.LogIDDTO"><file-path>welcome.txt</file-path></log-ids><log-ids resource="false" xsi:type="java:com.lovesoft.androger.core.storage.LogIDDTO"><file-path>C:\Windows\LDPINST.LOG</file-path></log-ids></log-containers></application-state-dTO>

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,13 +16,16 @@ import com.lovesoft.androger.Setup;
 import com.lovesoft.androger.core.LogID;
 import com.lovesoft.androger.core.LogString;
 import com.lovesoft.androger.core.datasource.DataSourceFile;
+import com.lovesoft.androger.tools.LogMe;
 
 public class LogFileDSTest {
 
-	private static final int WAIT_TIME_IN_MS = 50;
+	
+	private static final int WAIT_TIME_IN_MS = (int) Setup.getPauseTimeInMs() * 2;
 	private static final String OUT_FILE_NAME = "testfile.txt";
 	private static final String SIMPLE_CONTENT = "We are in this beautifull universe and we are so happy to say that óóó óóó:) !!!!";
 	private static final String SIMPLE_CONTENT2 = "Life is all about Love. True story.óóó";
+	
 
 	private DataWriter dw;
 	private DataSourceFile ds;

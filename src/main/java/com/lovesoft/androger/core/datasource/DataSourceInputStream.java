@@ -1,3 +1,4 @@
+
 package com.lovesoft.androger.core.datasource;
 
 import java.io.IOException;
@@ -6,13 +7,18 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.lovesoft.androger.LogDataObserver;
 import com.lovesoft.androger.Setup;
 import com.lovesoft.androger.core.LogID;
 import com.lovesoft.androger.core.LogString;
 import com.lovesoft.androger.tools.LogMe;
+import com.lovesoft.prologer.core.LogFileDSTest;
 
 public abstract class DataSourceInputStream implements LogDataSource, Runnable {
+	private static final Logger logger = LogManager.getLogger(DataSourceInputStream.class);
 	private static final long PAUSE_TIME_IN_MS = Setup.getPauseTimeInMs();
 	private int fileChunkSize = Setup.getFileChunkSize();
 	private LogID logID;
@@ -33,6 +39,7 @@ public abstract class DataSourceInputStream implements LogDataSource, Runnable {
 
 	public void start() {
 		if (!canRun.get()) {
+			logger.debug("Starting logger for " + logID.getFilePath());
 			canRun.set(true);
 			isPaused.set(false);
 			workingThread = new Thread(this);
@@ -68,7 +75,7 @@ public abstract class DataSourceInputStream implements LogDataSource, Runnable {
 			long currentLenght = getCurrentLenght();
 			if (lastLenght != currentLenght) {
 				// We have new data to read!
-
+				logger.debug("Found new data for " + logID.getFilePath());
 				if (currentLenght < lastLenght) {
 					reset();
 				}
@@ -107,7 +114,7 @@ public abstract class DataSourceInputStream implements LogDataSource, Runnable {
 				log.append(new String(buffor, 0, bytesRead));
 			}
 		} catch (IOException e) {
-			e.printStackTrace(); // TODO
+			logger.debug("Can't read log " + logID.getFilePath(), e);
 			reset();
 		}
 		if(bytesRead > 0) {
@@ -133,7 +140,7 @@ public abstract class DataSourceInputStream implements LogDataSource, Runnable {
 			openFile();
 			return true;
 		} catch (Exception ex) {
-			LogMe.logDebug("Can't read file " + logID.getFilePath(), ex);
+			logger.debug("Can't read file " + logID.getFilePath(), ex);
 			reset();
 			return false;
 		}
