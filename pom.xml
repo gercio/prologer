@@ -58,7 +58,7 @@
 							<id>attach-sources</id>
 							<phase>verify</phase>
 							<goals>
-								<goal>jar-bo-fork</goal>
+								<goal>jar</goal>
 							</goals>
 						</execution>
 					</executions>

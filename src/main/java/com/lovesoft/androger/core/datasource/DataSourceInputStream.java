@@ -14,8 +14,6 @@ import com.lovesoft.androger.LogDataObserver;
 import com.lovesoft.androger.Setup;
 import com.lovesoft.androger.core.LogID;
 import com.lovesoft.androger.core.LogString;
-import com.lovesoft.androger.tools.LogMe;
-import com.lovesoft.prologer.core.LogFileDSTest;
 
 public abstract class DataSourceInputStream implements LogDataSource, Runnable {
 	private static final Logger logger = LogManager.getLogger(DataSourceInputStream.class);
